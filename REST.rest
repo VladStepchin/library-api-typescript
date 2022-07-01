@@ -1,0 +1,40 @@
+GET http://localhost:3000/users/
+
+###
+GET http://localhost:3000/books/
+
+###
+POST http://localhost:3000/books/
+Content-Type: application/json
+
+{
+    "title":"test2"
+}
+
+###
+
+DELETE http://localhost:3000/users/62bf37a7186e23b974b8d7ae
+###
+
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+    "name": "Maryna46666",
+    "age": 20,
+    "books": ["62bf382b186e23b974b8d7bbz"]
+}
+
+###
+
+POST http://localhost:3000/users/62befac2deb8c9a6fc317dc6/books HTTP/1.1
+
+Content-Type: application/json
+{
+    "name": "Maryna4",
+    "age": 20,
+    "books": ["62bf2eadf122c87aa12b30aa"]
+}
+
+###
+GET http://localhost:3000/users/62bf36c5f18eabfd1c65bf7b/books HTTP/1.1
