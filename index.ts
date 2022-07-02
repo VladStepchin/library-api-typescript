@@ -1,30 +1,22 @@
-import express, { Application, Request, Response } from 'express'
-import bodyParser from 'body-parser'
-import mongoose from "mongoose"
-import dotenv from "dotenv"
-import routes from "./app/routes"
-import DbConnection from "./settings/DbConnection"
+import express, { Application, Request, Response, NextFunction } from 'express'
 
 const app: Application = express();
 const jsonParser = express.json();
 
-const mongodb = DbConnection.getInstance()
+const config = require('./settings/config');
+import "./models"
 
-const connectionString: string|undefined = dotenv.config().parsed?.DB_CONNECTION
+config
+.init('http://localhost:3010')
+.then(() => require('./settings/db')(config.getData().mongo))
+.then(() => {
+    app
+        .use(jsonParser)
+        .use(require('./app'))
+        .use(errorHandler)
+        .listen(config.getData().app.port, () => console.log("Сервер ожидает подключения..."));
+})
 
-// import "./models"
-
-app
-.use(jsonParser)
-.use(bodyParser.urlencoded({ extended: true }))
-.use('/', routes);
-
-try {
-    mongodb.connect(mongoose, connectionString).then(() => {
-        app.listen(dotenv.config().parsed?.PORT,
-            () => console.log("Server has been listening on port " + dotenv.config().parsed?.PORT));
-    })
+function errorHandler(err: any, req: Request, res: Response, next: NextFunction) {
+    res.status(err.statusCode).json({ message: err.message });
 }
-catch (e: any) {
-    throw new Error(e)
-}  

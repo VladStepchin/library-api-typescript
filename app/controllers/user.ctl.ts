@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 import userModule from '../../modules/user';
+import HttpError from "../../modules/utils"
 
 const list = (req: Request, res: Response, next: NextFunction) => {
     userModule
@@ -9,55 +10,54 @@ const list = (req: Request, res: Response, next: NextFunction) => {
 };
 
 const get = (req: Request, res: Response, next: NextFunction) => {
-    userModule
+   return userModule
         .get(req.params.id)
         .then(data => res.json(data))
         .catch(next);
 };
 
 const create = (req: Request, res: Response, next: NextFunction) => {
-    if (!req.body) return res.sendStatus(400);
+    if (req.body && !req.body.name) {
+        return next(new HttpError('Invalid body'));
+      }
 
-console.log(`Request body of create method ${JSON.stringify(req.body)}`);
-
-    userModule
+    return userModule
         .create(req.body)
         .then(data => res.json(data))
         .catch(next);
 };
 
 const remove = (req: Request, res: Response, next: NextFunction) => {
-    userModule
+    return userModule
         .remove(req.params.id)
         .then(data => res.json(data))
         .catch(next);
 };
 
 const update = (req: Request, res: Response, next: NextFunction) => {
-    if (!req.body) return res.sendStatus(400);
+    if (req.body && !req.body.name) {
+        return next(new HttpError('Invalid body'));
+      }
 
-    userModule
+    return userModule
         .update(req.body)
         .then(data => res.json(data))
         .catch(next);
 };
 
 const updateBooks = (req: Request, res: Response, next: NextFunction) => {
-    if (!req.body) return res.sendStatus(400);
+    if (req.body && !req.body.name) {
+        return next(new HttpError('Invalid body'));
+      }
 
-debugger
-console.log(req.body);
-console.log(req.params.id);
-
-
-    userModule
+    return userModule
         .updateBooks(req.params.id, req.body.books)
         .then(data => res.json(data))
         .catch(next);
 };
 
 const booksList = (req: Request, res: Response, next: NextFunction) => {
-    userModule
+    return userModule
         .booksList(req.params.id)
         .then(data => res.json(data))
         .catch(next);

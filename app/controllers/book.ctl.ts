@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 import bookModule from '../../modules/book';
+import HttpError from "../../modules/utils"
 
 const list = (req: Request, res: Response, next: NextFunction) => {
     bookModule
@@ -9,7 +10,9 @@ const list = (req: Request, res: Response, next: NextFunction) => {
 }
 
 const create = (req: Request, res: Response, next: NextFunction) => {
-    if (!req.body) return res.sendStatus(400);
+    if (req.body && !req.body.title) {
+        return next(new HttpError('Invalid body'));
+      }
 
     bookModule
         .create(req.body)

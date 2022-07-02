@@ -1,7 +1,8 @@
 import express from 'express';
+import router from './routes'
 
 const app = express();
 
-app.use('/', require('./routes')); // change to import
+app.use('/', router); // change to import
 
-export default app;
+module.exports = app;
