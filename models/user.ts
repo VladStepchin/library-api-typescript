@@ -3,19 +3,26 @@ import { Schema,Types, model, connect } from 'mongoose';
 interface IUser {
     name: string,
     age: number,
-    books: Schema.Types.ObjectId
+    books: Types.ObjectId,
+    rate: number
 }
 
-const userSchema = new Schema<IUser>({
+const userScheme = new Schema<IUser>({
     name: {
         type:String, required: true
-    },
+    },  
     age: {
         type:Number, required: true
     },
-    books:{
-        type: Schema.Types.ObjectId, ref: 'Book'
-    }
+    books: [
+        {
+            type: Schema.Types.ObjectId, ref: 'Book' 
+        }
+    ],
+    rate: {
+        type: Number,
+        default: 0,
+      }
 })
 
-export default userSchema
+export { userScheme, IUser }

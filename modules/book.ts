@@ -1,7 +1,8 @@
-import mongoose from "mongoose";
+import { model } from "mongoose";
 
-import bookScheme from '../models/book'
-const Book = mongoose.model("Book",bookScheme);
+import { IBook } from '../models/book'
+
+const Book = model<IBook>("Book");
 
 const list = (query: any) => {
     return Book

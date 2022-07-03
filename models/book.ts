@@ -14,4 +14,4 @@ const bookScheme = new Schema<IBook>({
     }
 })
 
-export default bookScheme
+export {bookScheme, IBook}

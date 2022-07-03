@@ -1,4 +1,14 @@
-GET http://localhost:3000/users/
+GET http://localhost:3000/users
+
+###
+
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+    "name":"Alinet",
+    "age":12
+}
 
 ###
 GET http://localhost:3000/books/
@@ -8,7 +18,7 @@ POST http://localhost:3000/books/
 Content-Type: application/json
 
 {
-    "title":"test3"
+    "title":"4 fellows"
 }
 
 ###
@@ -20,21 +30,20 @@ POST http://localhost:3000/users
 Content-Type: application/json
 
 {
-    "name": "Maryna46666",
+    "name": "Alina",
     "age": 20,
-    "books": ["62bf382b186e23b974b8d7bbz"]
 }
+
+//    "books": ["62c17d0cd3b8bb52cc5364f6", "62c05216f6d2a0d4b9a0f39e"]
 
 ###
 
-POST http://localhost:3000/users/62befac2deb8c9a6fc317dc6/books HTTP/1.1
+POST http://localhost:3000/users/62c187b3ed85e5625eecd6af/books HTTP/1.1
 
 Content-Type: application/json
 {
-    "name": "Maryna4",
-    "age": 20,
-    "books": ["62bf2eadf122c87aa12b30aa"]
+    "books": ["62c183e427ab0264970bb1c9","62bf382b186e23b974b8d7bb"]
 }
 
 ###
-GET http://localhost:3000/users/62bf3850397d7c6092708f55/books HTTP/1.1
+GET http://localhost:3000/users/62bf36c5f18eabfd1c65bf7b/books HTTP/1.1

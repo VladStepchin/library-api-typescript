@@ -1,5 +1,5 @@
 import express, { Application, Request, Response, NextFunction } from 'express'
-
+import bodyParser from 'body-parser'
 const app: Application = express();
 const jsonParser = express.json();
 
@@ -12,6 +12,8 @@ config
 .then(() => {
     app
         .use(jsonParser)
+        .use((bodyParser.urlencoded({ extended: false })))
+        .use(bodyParser.json())
         .use(require('./app'))
         .use(errorHandler)
         .listen(config.getData().app.port, () => console.log("Сервер ожидает подключения..."));

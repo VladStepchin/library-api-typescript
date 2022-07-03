@@ -1,8 +1,8 @@
-import mongoose from 'mongoose'
+import { model } from 'mongoose'
 
-import bookScheme from './book'
-import userScheme from './user'
+import {bookScheme, IBook} from './book'
+import {userScheme, IUser} from './user'
 
-const Book = mongoose.model("Book", bookScheme);
-const User = mongoose.model("User", userScheme);
+const Book = model<IBook>("Book", bookScheme);
+const User = model<IUser>("User", userScheme);
 
