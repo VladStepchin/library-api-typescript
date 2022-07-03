@@ -20,5 +20,6 @@ config
 })
 
 function errorHandler(err: any, req: Request, res: Response, next: NextFunction) {
+    console.log(err);
     res.status(err.statusCode).json({ message: err.message });
 }
